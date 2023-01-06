@@ -66,6 +66,18 @@ class DeviceController {
 
     return res.json(device);
   }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const deleted = await Device.destroy({ where: { id } });
+
+    if (deleted) {
+      return res.json({ message: 'Товар блы удален' });
+    } else {
+      return res.json({ message: 'Такого товара, по этому id не существует' });
+    }
+  }
 }
 
 module.exports = new DeviceController();
