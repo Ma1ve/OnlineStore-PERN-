@@ -14,6 +14,7 @@ class UserController {
     try {
       const { email, password, role } = req.body;
       if (!email || !password) {
+        // return res.status(404).json({ message: 'Некорректный email или password' });
         return next(ApiError.badRequest('Некорректный email или password'));
       }
       const candidate = await User.findOne({ where: { email } });
@@ -30,16 +31,21 @@ class UserController {
     }
   }
 
-  async login(req, res) {
-    const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (!user) return res.json(ApiError.internal('Пользователь с таким email не найден'));
+  async login(req, res, next) {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ where: { email } });
+      if (!user) return res.status(404).json({ message: 'Пользователь с таким email не найден' });
+      // if (!user) return next(ApiError.internal('Пользователь с таким email не найден'));
 
-    let comparePassword = bcrypt.compareSync(password, user.password);
-    if (!comparePassword) res.json(ApiError.internal('Указан неверный пароль'));
-
-    const token = generateJwt(user.id, user.email, user.role);
-    return res.json({ token });
+      let comparePassword = await bcrypt.compareSync(password, user.password);
+      if (!comparePassword) return res.status(404).json({ message: 'Указан неверный пароль' });
+      // if (!comparePassword) return next(ApiError.internal('Указан неверный пароль'));
+      const token = generateJwt(user.id, user.email, user.role);
+      return res.json({ token });
+    } catch (error) {
+      return next(ApiError.badRequest(error.message));
+    }
   }
 
   async check(req, res, next) {
