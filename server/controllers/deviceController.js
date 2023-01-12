@@ -30,13 +30,13 @@ class DeviceController {
   }
   async getAll(req, res) {
     let { brandId, typeId, limit, page } = req.query;
-    let devices;
 
+    limit = limit || 9;
     page = page || 1;
 
     let offset = page * limit - limit;
     // let offset = (page - 1) * limit;
-
+    let devices;
     if (!brandId && !typeId) {
       devices = await Device.findAndCountAll({ limit, offset });
       return res.json(devices);

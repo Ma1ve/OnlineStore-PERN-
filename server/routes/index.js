@@ -9,8 +9,8 @@ const typeRouter = require('./typeRouter');
 const checkRole = require('../middleware/checkRoleMiddleware');
 
 router.use('/user', userRouter);
-router.use('/device', checkRole('ADMIN'), deviceRouter);
-router.use('/brand', checkRole('ADMIN'), brandRouter);
-router.use('/type', checkRole('ADMIN'), typeRouter);
+router.use('/device', deviceRouter);
+router.use('/brand', brandRouter);
+router.use('/type', typeRouter);
 
 module.exports = router;
