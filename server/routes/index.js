@@ -1,16 +1,16 @@
-const Router = require('express');
-const router = new Router();
+const Route = require('express');
+const router = new Route();
 
 const userRouter = require('./userRouter');
-const deviceRouter = require('./deviceRouter');
-const brandRouter = require('./brandRouter');
 const typeRouter = require('./typeRouter');
+const brandRouter = require('./brandRouter');
+const deviceRouter = require('./deviceRouter');
 
-const checkRole = require('../middleware/checkRoleMiddleware');
+const roleMiddleware = require('../middleware/checkRoleMiddleware');
 
 router.use('/user', userRouter);
-router.use('/device', deviceRouter);
-router.use('/brand', brandRouter);
-router.use('/type', typeRouter);
+router.use('/type', roleMiddleware('ADMIN'), typeRouter);
+router.use('/brand', roleMiddleware('ADMIN'), brandRouter);
+router.use('/device', roleMiddleware('ADMIN'), deviceRouter);
 
 module.exports = router;

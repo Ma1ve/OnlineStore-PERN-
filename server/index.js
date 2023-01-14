@@ -1,38 +1,34 @@
 const express = require('express');
+const cors = require('cors');
+
+const path = require('path');
+const fileUpload = require('express-fileupload');
 
 const db = require('./db');
-const models = require('./models/models');
-const fileUpload = require('express-fileupload');
+
 const routes = require('./routes/index');
 
-const ErrorHandler = require('./middleware/ErrorHandlingMiddleware');
-
-require('dotenv').config();
-const cors = require('cors');
-const path = require('path');
-
-const PORT = process.env.PORT || 5000;
 const app = express();
+require('dotenv').config();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(fileUpload({}));
 
 app.use(express.static(path.resolve(__dirname, 'static')));
-app.use(fileUpload({}));
+const PORT = process.env.PORT || 6000;
 
 app.use('/', routes);
 
-app.use(ErrorHandler);
-
-async function start() {
+const start = async () => {
   try {
-    await db.authenticate(); // Устанавливается подключение к БД
-    await db.sync(); // Сверяет со схемой данных
+    await db.authenticate();
+    await db.sync();
     app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    console.log(error);
   }
-}
+};
 
 start();

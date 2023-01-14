@@ -1,99 +1,58 @@
-const db = require('../db');
-
+const db = require('../db.js');
 const { DataTypes } = require('sequelize');
 
 const User = db.define('user', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
   email: { type: DataTypes.STRING, unique: true },
   password: { type: DataTypes.STRING },
   role: { type: DataTypes.STRING, defaultValue: 'USER' },
 });
 
-const Basket = db.define('basket', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-});
-
-const BasketDevice = db.define('basket_device', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-});
-
 const Device = db.define('device', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
   price: { type: DataTypes.INTEGER, allowNull: false },
   rating: { type: DataTypes.INTEGER, defaultValue: 0 },
   img: { type: DataTypes.STRING, allowNull: false },
 });
 
-const Type = db.define('type', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, unique: true, allowNull: false },
-});
-
-const Brand = db.define('brand', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, unique: true, allowNull: false },
-});
-
-const Rating = db.define('rating', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  rate: { type: DataTypes.INTEGER, allowNull: false },
-});
-
 const DeviceInfo = db.define('device_info', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  ttile: { type: DataTypes.STRING, allowNull: false },
+  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+  title: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.STRING, allowNull: false },
 });
 
-const TypeBrand = db.define('type_brand', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+const Brand = db.define('brand', {
+  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+  name: { type: DataTypes.STRING, allowNull: false, unique: true },
 });
 
-// User-Basket
-User.hasOne(Basket);
-Basket.belongsTo(User);
+const Type = db.define('type', {
+  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+  name: { type: DataTypes.STRING, allowNull: false, unique: true },
+});
 
-// User-Rating
-User.hasMany(Rating);
-Rating.belongsTo(User);
+const TypeBrand = db.define('type_brand', {
+  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+});
 
-// Basket-BasketDevice
-Basket.hasMany(BasketDevice);
-BasketDevice.belongsTo(Basket);
-
-// Type-Device
-Type.hasMany(Device);
-Device.belongsTo(Type);
-
-// Brand-Device
 Brand.hasMany(Device);
 Device.belongsTo(Brand);
 
-// Device-rating
-Device.hasMany(Rating);
-Rating.belongsTo(Device);
+Type.hasMany(Device);
+Device.belongsTo(Type);
 
-// Device-BasketDevice
-Device.hasMany(BasketDevice);
-BasketDevice.belongsTo(Device);
-
-//Device-DeviceInfo
-Device.hasMany(DeviceInfo, { as: 'info' }); // поле info, которое будет у массива характеристик
+Device.hasMany(DeviceInfo, { as: 'info' }); /* , */
 DeviceInfo.belongsTo(Device);
 
-//Type-Brand belongsToMany
 Type.belongsToMany(Brand, { through: TypeBrand });
 Brand.belongsToMany(Type, { through: TypeBrand });
 
 module.exports = {
   User,
-  Basket,
-  BasketDevice,
   Device,
+  DeviceInfo,
   Type,
   Brand,
-  Rating,
-  DeviceInfo,
   TypeBrand,
 };
