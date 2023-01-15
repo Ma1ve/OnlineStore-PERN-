@@ -42,7 +42,7 @@ Device.belongsTo(Brand);
 Type.hasMany(Device);
 Device.belongsTo(Type);
 
-Device.hasMany(DeviceInfo, { as: 'info' }); /* , */
+Device.hasMany(DeviceInfo, { as: 'info' });
 DeviceInfo.belongsTo(Device);
 
 Type.belongsToMany(Brand, { through: TypeBrand });

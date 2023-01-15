@@ -30,23 +30,46 @@ class DeviceController {
 
   async getAll(req, res) {
     try {
-      // const device =
+      let { brandId, typeId, limit, page } = req.query;
+
+      page = page || 1;
+      let offset = (page - 1) * limit;
+
+      let devices;
+
+      if (!brandId && !typeId) {
+        devices = await Device.findAndCountAll({ limit, offset });
+        return res.json(devices);
+      }
+      if (brandId && !typeId) {
+        devices = await Device.findAndCountAll({ where: { brandId }, limit, offset });
+        return res.json(devices);
+      }
+      if (!brandId && typeId) {
+        devices = await Device.findAndCountAll({ where: { typeId }, limit, offset });
+        return res.json(devices);
+      }
+
+      if (brandId && typeId) {
+        devices = await Device.findAndCountAll({ where: { typeId, brandId }, limit, offset });
+        return res.json(devices);
+      }
     } catch (error) {
       console.log(erorr.message);
     }
   }
 
   async getOne(req, res) {
-    // try {
-    const { id } = req.params;
-    const device = await Device.findOne({
-      where: { id },
-      include: { model: DeviceInfo, as: 'info' },
-    });
-    return res.json(device);
-    // } catch (error) {
-    //   console.log(erorr.message);
-    // }
+    try {
+      const { id } = req.params;
+      const device = await Device.findOne({
+        where: { id },
+        include: { model: DeviceInfo, as: 'info' },
+      });
+      return res.json(device);
+    } catch (error) {
+      console.log(erorr.message);
+    }
   }
 }
 
