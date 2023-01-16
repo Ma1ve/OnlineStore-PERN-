@@ -24,6 +24,7 @@ const Auth = observer(() => {
         console.log(data);
       } else {
         data = await registration(email, password);
+
         console.log(data);
       }
 
@@ -33,7 +34,7 @@ const Auth = observer(() => {
       navigate(SHOP_ROUTE);
     } catch (error) {
       console.log(error);
-      alert(error.response.data.message);
+      // alert(error.response.data.message);
     }
   };
 
@@ -44,7 +45,7 @@ const Auth = observer(() => {
           <div className="text-center text-2xl text-gray-700 text-sm font-bold">
             {isLogin ? 'Login' : 'Registration'}
           </div>
-          <label className="text-lg block text-gray-700 text-sm font-bold mb-2" for="username">
+          <label className="text-md block text-gray-700 text-sm font-bold mb-2" for="username">
             Username
           </label>
 
@@ -57,7 +58,7 @@ const Auth = observer(() => {
           />
         </div>
         <div className="mb-6">
-          <label className="text-lg lock text-gray-700 text-sm font-bold mb-2" for="password">
+          <label className="text-md lock text-gray-700 text-sm font-bold mb-2" for="password">
             Password
           </label>
           <input
@@ -79,13 +80,13 @@ const Auth = observer(() => {
           {!isLogin ? (
             <NavLink
               to={LOGIN_ROUTE}
-              className="text-2xl inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
               Have an account?
             </NavLink>
           ) : (
             <NavLink
               to={REGISTRATION_ROUTE}
-              className="text-2xl inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
               No account?
             </NavLink>
           )}

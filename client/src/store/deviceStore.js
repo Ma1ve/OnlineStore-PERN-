@@ -2,7 +2,13 @@ import { makeAutoObservable } from 'mobx';
 
 export default class DeviceStore {
   constructor() {
-    this._devices = [];
+    this._devices = [
+      { id: 1, name: 'Overworld', rating: 2 },
+      { id: 2, name: 'Overworld', rating: 2 },
+      { id: 3, name: 'Overworld', rating: 2 },
+      { id: 4, name: 'Overworld', rating: 2 },
+      { id: 5, name: 'Overworld', rating: 2 },
+    ];
 
     this._brands = [
       { id: 1, name: 'Overworld' },

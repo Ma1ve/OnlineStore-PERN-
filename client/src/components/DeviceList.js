@@ -8,7 +8,7 @@ const DeviceList = observer(() => {
 
   return (
     <>
-      <div className="">
+      <div className="grid grid-cols-5 gap-5 mt-5">
         {device.devices.map((device) => (
           <DeviceItem key={device.id} device={device} />
         ))}

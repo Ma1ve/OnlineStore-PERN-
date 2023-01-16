@@ -15,7 +15,7 @@ const BrandBar = observer(() => {
     <>
       <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400 hover:cursor-pointer">
         {device.types.map((type) => (
-          <li key={type.id} class="mr-2" onClick={() => device.setSelectedType(type)}>
+          <li key={type.id} class="mr-5" onClick={() => device.setSelectedType(type)}>
             <div className={type.id === device.selectedType.id ? clazzActive : clazz}>
               {type.name}
             </div>
