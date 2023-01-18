@@ -17,7 +17,7 @@ const NavBar = observer(() => {
   };
 
   return (
-    <header className="  w-full bg-black shadow-lg bg-white">
+    <header className="w-full bg-black shadow-lg bg-white ">
       <div className="container mx-auto p-3 flex justify-between items-center text-xl">
         <div
           className="[text-shadow:_1px_10px_1px_rgb(0_0_0_/_40%)] drop-shadow-2xl  text-cyan-500 border-1 text-2xl hover: cursor-pointer font-bold tracking-wider"

@@ -6,10 +6,10 @@ const BrandBar = observer(() => {
   const { device } = useContext(Context);
 
   let clazz =
-    'inline-block rounded-lg  px-4 py-3 text-black shadow-lg shadow-blue-500/50 duration-300 bg-stone-50 hover:bg-stone-300 ';
+    'inline-block rounded-lg  px-2 py-2 text-black shadow-lg shadow-blue-500/50 duration-300 border-2 bg-stone-50 hover:bg-stone-300 ';
 
   let clazzActive =
-    'inline-block rounded-lg  px-4 py-3 text-white shadow-lg shadow-blue-500/50 duration-300 bg-black border-2 border-white ';
+    'inline-block rounded-lg  px-4 py-3 text-white shadow-lg shadow-blue-500/50 duration-300 bg-black border-2 border-white';
 
   return (
     <>

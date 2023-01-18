@@ -5,13 +5,14 @@ import { authRoutes, publicRoutes } from '../routes';
 import { SHOP_ROUTE } from '../utils/counts';
 
 import imgBg from '../assets/bg.webp';
+import { observer } from 'mobx-react-lite';
 
-const AppRouter = () => {
+const AppRouter = observer(() => {
   const { user } = useContext(Context);
   console.log(user.isAuth);
 
   return (
-    <div style={{ backgroundImage: `url(${imgBg})`, height: '100vh' }}>
+    <div style={{ backgroundImage: `url(${imgBg})` }}>
       <Routes>
         {user.isAuth &&
           authRoutes.map(({ path, Component }) => <Route path={path} element={Component} />)}
@@ -24,6 +25,6 @@ const AppRouter = () => {
       </Routes>
     </div>
   );
-};
+});
 
 export default AppRouter;

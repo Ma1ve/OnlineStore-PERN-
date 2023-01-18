@@ -9,8 +9,10 @@ const deviceRouter = require('./deviceRouter');
 const roleMiddleware = require('../middleware/checkRoleMiddleware');
 
 router.use('/user', userRouter);
-router.use('/type', roleMiddleware('ADMIN'), typeRouter);
-router.use('/brand', roleMiddleware('ADMIN'), brandRouter);
-router.use('/device', roleMiddleware('ADMIN'), deviceRouter);
+router.use('/type', typeRouter);
+router.use('/brand', brandRouter);
+router.use('/device', deviceRouter);
+
+// roleMiddleware('ADMIN'),
 
 module.exports = router;
