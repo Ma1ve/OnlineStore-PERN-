@@ -5,7 +5,6 @@ const CreateBrand = ({ active, setActive }) => {
   const [value, setValue] = useState('');
 
   const addBrand = () => {
-    console.log(2343);
     crateBrand({ name: value }).then((data) => {
       setValue('');
       setActive(false);

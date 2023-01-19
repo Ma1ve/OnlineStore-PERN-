@@ -40,6 +40,11 @@ const DevicePage = () => {
       <div className=" text-9xl font-bold">
         <div>{device.name}</div>
         <div>{device.rating}</div>
+        {device.info.map((info) => (
+          <div>
+            {info.title} : {info.description}
+          </div>
+        ))}
       </div>
     </div>
   );

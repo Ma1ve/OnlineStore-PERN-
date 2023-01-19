@@ -13,18 +13,25 @@ class DeviceController {
       img.mv(path.resolve(__dirname, '..', 'static', fileName));
 
       const device = await Device.create({ name, price, rating, img: fileName, brandId, typeId });
-      console.log(10);
+
       if (info) {
-        info = JSON.parse(info);
-        info.forEach((i) =>
-          DeviceInfo.create({ title: i.title, description: i.description, deviceId: device.id }),
+        let newInfo = JSON.parse(info);
+        console.log(newInfo);
+        newInfo.forEach((i) =>
+          DeviceInfo.create({
+            title: i.title,
+            description: i.description,
+            deviceId: device.id,
+          }),
         );
       }
+
       console.log(12);
       return res.json(device);
     } catch (error) {
-      console.log(erorr.message);
-      return res.json({ message: error.mesage });
+      // console.log(erorr.message);
+
+      return res.json(error.message);
       // console.log(erorr);
     }
   }

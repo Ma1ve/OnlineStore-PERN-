@@ -38,8 +38,8 @@ const CreateDevice = observer(({ active, setActive }) => {
     formData.append('name', name);
     formData.append('price', `${price}`);
     formData.append('img', file);
-    formData.append('brandId', 1);
-    formData.append('typeId', 2);
+    formData.append('brandId', device.selectedBrand);
+    formData.append('typeId', device.selectedType);
     formData.append('info', JSON.stringify(info));
 
     createDevice(formData).then((data) => setActive(false));
@@ -87,9 +87,8 @@ const CreateDevice = observer(({ active, setActive }) => {
                   <option
                     value={type.id}
                     key={type.id}
-                    /* onClick={() => {
-                      device.setSelectedType(type);
-                      console.log(device.selectedType);
+                    /*  onClick={(e) => {
+                      console.log(e.target.value);
                     }} */
                   >
                     {type.name}

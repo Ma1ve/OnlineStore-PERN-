@@ -29,7 +29,7 @@ export const fetchDevices = async (brandId, typeId, limit = 5, page) => {
   const { data } = await $host.get('device', { params: { brandId, typeId, limit, page } });
   return data;
 };
-// brandId, typeId, (limit = 5), page;
+
 export const fetchOneDevice = async (id) => {
   const { data } = await $host.get('device/' + id);
   return data;
